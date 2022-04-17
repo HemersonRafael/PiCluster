@@ -15,7 +15,7 @@ sudo raspi-config
 3 Interface Options -> I2 SSH -> Yes
 SSH is enable!0
 
-## Alter hostname
+## Altering hostname
 ```shell
 sudo raspi-config
 ```
@@ -49,6 +49,7 @@ mkdir -p $HOME/.kube
 2) Create a copy of the K3S k3s.yaml file in the .kube directory:
 ```shell
 sudo cp /etc/rancher/k3s/k3s.yaml ~/.kube/config
+sudo chmod 600 ~/.kube/config
 ```
 3) Export the path to the file for the KUBECONFIG environment variable:
 ```shell
