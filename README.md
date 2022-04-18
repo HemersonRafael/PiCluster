@@ -59,7 +59,7 @@ export KUBECONFIG=$HOME/.kube/config
 ```shell
 echo 'export KUBECONFIG=$HOME/.kube/config' >> $HOME/.bashrc
 ```
-5) Next, verify with:
+5) Verify master with:
 ```shell
 rasp@master:~ $ systemctl status k3s.service
 ● k3s.service - Lightweight Kubernetes
@@ -124,6 +124,36 @@ node-2   Ready    <none>                 9m5s   v1.22.7+k3s1
 node-1   Ready    <none>                 9m5s   v1.22.7+k3s1
 master   Ready    control-plane,master   98m    v1.22.7+k3s1
 
+```
+7) Verify workers with:
+```shell
+rasp@node-1:~ $ sudo systemctl status k3s-agent
+● k3s-agent.service - Lightweight Kubernetes
+     Loaded: loaded (/etc/systemd/system/k3s-agent.service; enabled; vendor preset: enabled)
+     Active: active (running) since Sun 2022-04-17 14:02:49 BST; 1h 4min ago
+       Docs: https://k3s.io
+    Process: 1215 ExecStartPre=/bin/sh -xc ! /usr/bin/systemctl is-enabled --quiet nm-cloud-setup.service (code=exited, status=0/SUCCESS)
+    Process: 1217 ExecStartPre=/sbin/modprobe br_netfilter (code=exited, status=0/SUCCESS)
+    Process: 1218 ExecStartPre=/sbin/modprobe overlay (code=exited, status=0/SUCCESS)
+   Main PID: 1219 (k3s-agent)
+      Tasks: 44
+     Memory: 280.7M
+        CPU: 9min 22.059s
+     CGroup: /system.slice/k3s-agent.service
+             ├─1219 /usr/local/bin/k3s agent
+             ├─1279 containerd
+             └─1651 /var/lib/rancher/k3s/data/cefe7380a851b348db6a6b899546b24f9e19b38f3b34eca24bdf84853943b0bb/bin/containerd-shim-runc-v2 -namespace k8s.io -id d6342998f61875d4c9f8527f848a0fa1b4ab09c0155a0a6084f98c8067089be1 -address />
+
+Apr 17 14:18:34 node-1 k3s[1219]: W0417 14:18:34.693556    1219 sysinfo.go:203] Nodes topology is not available, providing CPU topology
+Apr 17 14:23:34 node-1 k3s[1219]: W0417 14:23:34.693060    1219 sysinfo.go:203] Nodes topology is not available, providing CPU topology
+Apr 17 14:28:34 node-1 k3s[1219]: W0417 14:28:34.693265    1219 sysinfo.go:203] Nodes topology is not available, providing CPU topology
+Apr 17 14:33:34 node-1 k3s[1219]: W0417 14:33:34.692902    1219 sysinfo.go:203] Nodes topology is not available, providing CPU topology
+Apr 17 14:38:34 node-1 k3s[1219]: W0417 14:38:34.692698    1219 sysinfo.go:203] Nodes topology is not available, providing CPU topology
+Apr 17 14:43:34 node-1 k3s[1219]: W0417 14:43:34.693493    1219 sysinfo.go:203] Nodes topology is not available, providing CPU topology
+Apr 17 14:48:34 node-1 k3s[1219]: W0417 14:48:34.697158    1219 sysinfo.go:203] Nodes topology is not available, providing CPU topology
+Apr 17 14:53:34 node-1 k3s[1219]: W0417 14:53:34.693422    1219 sysinfo.go:203] Nodes topology is not available, providing CPU topology
+Apr 17 14:58:34 node-1 k3s[1219]: W0417 14:58:34.692802    1219 sysinfo.go:203] Nodes topology is not available, providing CPU topology
+Apr 17 15:03:34 node-1 k3s[1219]: W0417 15:03:34.694044    1219 sysinfo.go:203] Nodes topology is not available, providing CPU topology
 ```
 ## [Uninstalling K3S](https://rancher.com/docs/k3s/latest/en/installation/uninstall/)
 To uninstall K3s from a server node, run:
