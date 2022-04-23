@@ -22,6 +22,23 @@ sudo raspi-config
 1 System Options -> S4 Hostname Set name for this computer on a network 
 Set master for contral-plane and node-1, node-2 ... for workers
 
+## Backup of the dhcpcd.conf
+```shell
+sudo cp /etc/dhcpcd.conf /etc/dhcpcd.conf.backup
+```
+## Setting IP configuration
+```shell
+sudo nano /etc/dhcpcd.conf
+```
+```text
+# Example static IP configuration:
+interface eth0
+static ip_address=192.168.1.100/24
+#static ip6_address=fd51:42f8:caae:d92e::ff/64
+static routers=192.168.1.1
+static domain_name_servers= 8.8.8.8
+```
+
 ## [Installing Rancher K3S](https://rancher.com/docs/k3s/latest/en/quick-start/)
 Addind setting for cgruop: cgroup_memory=1 cgroup_enable=memory in file cmdline.txt before rootwait:          
 ```shell
@@ -107,7 +124,7 @@ local-path-provisioner-84bb864455-zqxth   1/1     Running     4 (65s ago)   51m
 
 ```
 ```shell
-rasp@master:~ $ k3s kubectl cluster-info
+rasp@master:~ $ sudo k3s kubectl cluster-info
 Kubernetes control plane is running at https://127.0.0.1:6443
 CoreDNS is running at https://127.0.0.1:6443/api/v1/namespaces/kube-system/services/kube-dns:dns/proxy
 Metrics-server is running at https://127.0.0.1:6443/api/v1/namespaces/kube-system/services/https:metrics-server:https/proxy
